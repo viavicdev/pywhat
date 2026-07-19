@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 APP_NAME="PyWhat"
 EXECUTABLE="PyWhat"
-VERSION="1.0"
+VERSION="${PYWHAT_VERSION:-1.0.0}"
 BUNDLE_ID="no.synapse.pywhat.app"
 SRC_DIR="$SCRIPT_DIR/PyWhat"
 BUILD_DIR="$SCRIPT_DIR/.build"
@@ -17,6 +17,7 @@ SOURCES=(
     "$SRC_DIR/ProcessScanner.swift"
     "$SRC_DIR/DesignTokens.swift"
     "$SRC_DIR/PanelView.swift"
+    "$SRC_DIR/UpdateService.swift"
 )
 
 echo "Klargjør build-mappe..."

@@ -394,7 +394,7 @@ struct PanelView: View {
             }
             .buttonStyle(Design.PillButtonStyle())
             Spacer()
-            Text("oppdateres hvert 5. sek")
+            Text("v\(UpdateService.shared.currentVersion) · auto-oppdatering")
                 .font(Design.captionFont)
                 .foregroundColor(Design.subtleText)
         }

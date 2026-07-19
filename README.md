@@ -57,7 +57,28 @@ apps/pywhat/
 └── start.sh                  # LEGACY: manuell start av python-versjonen
 ```
 
-## Bygge på nytt
+## Installere på en ny maskin
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/viavicdev/pywhat/main/install.sh | bash
+```
+
+Laster ned siste release til `/Applications`, setter opp autostart (launchd) og
+starter appen. Etterpå **oppdaterer appen seg selv**: den sjekker GitHub Releases
+ved oppstart og hver 6. time, laster ned ny versjon og relanserer. Ingen manuelle
+oppdateringer på noen maskin.
+
+## Lage ny release
+
+```bash
+./release.sh 1.1.0 "hva som er nytt"
+```
+
+Bygger, zipper, tagger `v1.1.0` og publiserer på GitHub — alle installerte kopier
+plukker den opp automatisk. (Auto-oppdatering gjelder kun kopier i `/Applications`;
+dev-builds fra `.build/` rører seg ikke.)
+
+## Bygge lokalt (dev)
 
 ```bash
 ./apps/pywhat/build.sh

@@ -15,6 +15,7 @@ final class AppState: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
             self?.refresh()
         }
+        UpdateService.shared.start()
     }
 
     func refresh() {
