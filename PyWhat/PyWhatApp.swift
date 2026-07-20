@@ -16,6 +16,7 @@ final class AppState: ObservableObject {
             self?.refresh()
         }
         UpdateService.shared.start()
+        DispatchQueue.main.async { AppearanceMode.applySaved() }
     }
 
     func refresh() {

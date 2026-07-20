@@ -50,6 +50,7 @@ struct PanelView: View {
     @EnvironmentObject var state: AppState
     @State private var expanded: Set<String> = []
     @AppStorage("collapsedSections") private var collapsedRaw = ""
+    @AppStorage(AppearanceMode.storageKey) private var appearanceMode = "auto"
 
     private var collapsed: Set<String> {
         Set(collapsedRaw.split(separator: ",").map(String.init))
@@ -394,11 +395,27 @@ struct PanelView: View {
             }
             .buttonStyle(Design.PillButtonStyle())
             Spacer()
-            Text("v\(UpdateService.shared.currentVersion) · auto-oppdatering")
+            HStack(spacing: 4) {
+                appearanceButton("auto", icon: "circle.lefthalf.filled", help: "Følg systemet")
+                appearanceButton("light", icon: "sun.max.fill", help: "Lys modus")
+                appearanceButton("dark", icon: "moon.fill", help: "Mørk modus")
+            }
+            Text("v\(UpdateService.shared.currentVersion)")
                 .font(Design.captionFont)
                 .foregroundColor(Design.subtleText)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
+    }
+
+    private func appearanceButton(_ mode: String, icon: String, help: String) -> some View {
+        Button {
+            appearanceMode = mode
+            AppearanceMode.apply(mode)
+        } label: {
+            Image(systemName: icon)
+        }
+        .buttonStyle(Design.IconButtonStyle(isAccent: appearanceMode == mode))
+        .help(help)
     }
 }

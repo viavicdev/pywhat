@@ -22,6 +22,24 @@ private func adaptiveOpacity(
     }))
 }
 
+// Lys/mørk-innstilling: "auto" følger systemet, ellers overstyres hele appen.
+// Design-fargene er dynamiske NSColors, så de reagerer på NSApp.appearance.
+enum AppearanceMode {
+    static let storageKey = "appearanceMode"
+
+    static func apply(_ mode: String) {
+        switch mode {
+        case "light": NSApp.appearance = NSAppearance(named: .aqua)
+        case "dark": NSApp.appearance = NSAppearance(named: .darkAqua)
+        default: NSApp.appearance = nil
+        }
+    }
+
+    static func applySaved() {
+        apply(UserDefaults.standard.string(forKey: storageKey) ?? "auto")
+    }
+}
+
 enum Design {
     static let panelBackground     = adaptive(light: (0.97, 0.97, 0.96), dark: (0.04, 0.04, 0.06))
     static let cardBackground      = adaptive(light: (1.0, 1.0, 1.0),    dark: (0.09, 0.09, 0.12))
