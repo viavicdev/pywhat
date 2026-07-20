@@ -115,6 +115,7 @@ struct PanelView: View {
         }
         .frame(width: 400)
         .background(Design.panelBackground)
+        .onAppear { UpdateService.shared.checkThrottled() }
     }
 
     // MARK: Header

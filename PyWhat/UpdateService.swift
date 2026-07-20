@@ -10,6 +10,7 @@ final class UpdateService {
     private let repo = "viavicdev/pywhat"
     private let assetName = "PyWhat.zip"
     private var timer: Timer?
+    private var lastCheck: Date = .distantPast
 
     private struct Release: Decodable {
         let tag_name: String
@@ -31,12 +32,19 @@ final class UpdateService {
             return
         }
         check()
-        timer = Timer.scheduledTimer(withTimeInterval: 6 * 3600, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 3600, repeats: true) { [weak self] _ in
             self?.check()
         }
     }
 
+    /// Kalles når panelet åpnes — sjekker maks hvert 15. minutt.
+    func checkThrottled() {
+        guard Date().timeIntervalSince(lastCheck) > 900 else { return }
+        check()
+    }
+
     func check() {
+        lastCheck = Date()
         guard let url = URL(string: "https://api.github.com/repos/\(repo)/releases/latest") else { return }
         var req = URLRequest(url: url)
         req.setValue("PyWhat-updater", forHTTPHeaderField: "User-Agent")

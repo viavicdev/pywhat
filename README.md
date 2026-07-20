@@ -65,8 +65,8 @@ curl -fsSL https://raw.githubusercontent.com/viavicdev/pywhat/main/install.sh | 
 
 Laster ned siste release til `/Applications`, setter opp autostart (launchd) og
 starter appen. Etterpå **oppdaterer appen seg selv**: den sjekker GitHub Releases
-ved oppstart og hver 6. time, laster ned ny versjon og relanserer. Ingen manuelle
-oppdateringer på noen maskin.
+ved oppstart, hver time og når panelet åpnes (maks hvert 15. min), laster ned ny
+versjon og relanserer. Ingen manuelle oppdateringer på noen maskin.
 
 ## Lage ny release
 
