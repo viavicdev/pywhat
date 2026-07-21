@@ -17,6 +17,15 @@ final class AppState: ObservableObject {
         }
         UpdateService.shared.start()
         DispatchQueue.main.async { AppearanceMode.applySaved() }
+
+        // Gi tastaturfokus tilbake til forrige app når panelet lukkes.
+        // macOS klarer det ikke alltid selv for menylinje-paneler, og da
+        // «dør» snarveier (Cmd+A osv.) til man klikker i et vindu igjen.
+        NotificationCenter.default.addObserver(
+            forName: NSWindow.didResignKeyNotification, object: nil, queue: .main
+        ) { _ in
+            NSApp.deactivate()
+        }
     }
 
     func refresh() {
